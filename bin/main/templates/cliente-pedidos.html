@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template}"
+    th:with="link=@{/cliente/home}">
+
+
+
+<body id="fundo">
+    
+    <div layout:fragment="content">
+
+        <div class="container">
+
+            <h2>Seus Pedidos</h2>
+            
+                
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col mb-4" th:each="pedido : ${pedidos}">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <a href="#">
+                                <span th:text="${pedido.formattedId}"></span>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="dataPedido">
+                                        <span th:text="${pedido.diaPedido}"></span>
+                                        <span th:text="${pedido.mesPedido}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th th:text="${pedido.restaurante.nome}"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td class="text-muted" th:text="'Status ' + ${pedido.status.descricao}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a th:onclick="'location.href=\'' + @{/cliente/pedido/view} + '?pedidoId=' + ${pedido.id} + '\';'" class="btn btn-primary">Ver Pedido</a>
+                                    <button type="button" class="btn btn-outline-primary ml-3">Pedir novamente</button>
+                                </div>
+                            </div>
+        
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

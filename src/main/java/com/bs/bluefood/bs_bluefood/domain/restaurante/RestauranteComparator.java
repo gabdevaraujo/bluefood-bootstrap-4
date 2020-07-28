@@ -1,0 +1,35 @@
+package com.bs.bluefood.bs_bluefood.domain.restaurante;
+
+import java.util.Comparator;
+
+import com.bs.bluefood.bs_bluefood.domain.restaurante.SearchFilter.Order;
+
+public class RestauranteComparator implements Comparator<Restaurante>{
+
+    private SearchFilter filter;
+    private String cep;
+
+    public RestauranteComparator(SearchFilter filter, String cep) {
+        this.filter = filter;
+        this.cep = cep;
+    }
+
+    @Override
+    public int compare(Restaurante r1, Restaurante r2) {
+        int result;
+
+        //Se o filtro for por taxa
+        if(filter.getOrder() == Order.TAXA){
+            result = r1.getTaxaEntrega().compareTo(r2.getTaxaEntrega());
+        }
+        else if(filter.getOrder() == Order.TEMPO){
+            result = r1.calcularTempoEntrega(cep).compareTo(r2.calcularTempoEntrega(cep));
+        }
+        else{
+            throw new IllegalStateException("O valor da ordenação " + filter.getOrder() + " não é válido");
+        }
+
+        return filter.isAsc() ? result : -result;
+        
+    }    
+}

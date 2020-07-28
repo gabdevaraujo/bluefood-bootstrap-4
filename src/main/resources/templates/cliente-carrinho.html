@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}"
+    th:with="link=@{/cliente/home}">
+
+<body id="fundo">
+    <div layout:fragment="content">
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-header">
+        
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart align-middle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                      </svg><span class="ml-3">Seu carrinho</span>
+        
+                </div>
+        
+                <div class="card-body">
+                    <div th:if="!${carrinho.isEmpty()}">
+                        <div class="row" th:object="${carrinho}">
+                            <h2 class="text-muted" th:text="${carrinho.restaurante.nome}" style="display: block;"></h2>
+                        </div>    
+
+                        <div class="row border-bottom">
+                            <div class="col-auto pl-0" id="previsaoEntrega">
+                                <p class="text-muted mb-0">Previsão de entrega:</p>
+                                <p>27/04/2020 - 21:16 - 21:26</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+                    
+                    
+                    <div th:each="item : ${carrinho.itens}">
+                        <div class="row justify-content-between border-bottom">
+                            <span th:text="${item.quantidade} + 'x ' + ${item.itemCardapio.nome} + ' ' + ${'| Obs: ' + item.observacoes}"></span>
+                            <a th:onclick="'location.href=\'' + @{/cliente/carrinho/remover} + '?itemId=' + ${item.itemCardapio.id} + '\';'">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M6 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                    <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                  </svg>
+                            </a>
+                              <span class="text-muted" th:text="${item.preco}"></span>
+                        </div>
+                    </div>
+
+                    <div th:if="!${carrinho.isEmpty()}">
+                        <div class="row justify-content-between" th:if="!${carrinho.isEmpty()}">
+                            <strong><span>SubTotal</span></strong>
+                            <strong><span th:text="${#numbers.formatCurrency(carrinho.subTotal)}"></span></strong>
+                        </div>
+                        <div class="row justify-content-between">
+                            <span>Cupom</span>
+                            <span class="text-muted">- R$ 0,00</span>
+                        </div>
+                    
+                        <div class="row justify-content-between">
+                            <span>Taxa de Entrega</span>
+                            <span class="text-muted" th:text="${#numbers.formatCurrency(carrinho.restaurante.taxaEntrega)}"></span>
+                        </div>
+                        <div class="row pb-4 justify-content-between border-bottom">
+                            <strong><span>Total</span></strong>
+                            <strong><span th:text="${#numbers.formatCurrency(carrinho.getPrecoTotal(true))}"></span></span></strong>
+                        </div>
+
+                        <form method="POST" th:action="@{/cliente/pagamento/pagar}">
+
+                        <h1 class="mb-1 mt-2">Pagamento</h4>
+
+                        <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked >
+                            <label class="custom-control-label" for="credit">Cartão de Crédito</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" >
+                            <label class="custom-control-label" for="debit">Cartão de Débito</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" >
+                            <label class="custom-control-label" for="paypal">PayPal</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" >
+                            <label class="custom-control-label" for="paypal">Boleto</label>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="cc-name">Nome</label>
+                            <input type="text" class="form-control" id="cc-name" placeholder="" >
+                            <small class="text-muted">Nome completo igual está no cartão</small>
+                            <div class="invalid-feedback">
+                            Nome é necessário
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cc-number">Número do Cartão</label>
+                            <input type="text" class="form-control" id="numCartao" name="numCartao" placeholder="" >
+                            <div class="invalid-feedback">
+                            Número do cartão não pode ficar em branco
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="cc-expiration">Data de Expiração(MM/AA)</label>
+                            <input type="text" class="form-control" id="cc-expiration" placeholder="MM/AA" >
+                            <div class="invalid-feedback">
+                            Data da expiração é necessária
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="cc-cvv"> Código de Segurança</label>
+                            <input type="text" class="form-control" id="cc-cvv" placeholder="Ex: 041" >
+                            <div class="invalid-feedback">
+                            Código de Segurança é necessário
+                            </div>
+                        </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="enviarPedido">Pagar</button>
+                    </form>
+                    </div>    
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

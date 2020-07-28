@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}" th:with="link=@{/cliente/home}">
+
+<body id="fundo">
+    <div layout:fragment="content">
+
+        <div th:if="${msg != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><span th:text="${msg}"></span></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        <div class="card">
+
+            <div class="card-header">
+                Cadastro de Cliente
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Insira seus dados</h5>
+                <form method="POST" th:object="${cliente}" th:action="@{/public/cliente/save}">
+                    <input type="hidden" name="id" th:field="*{id}">
+                    
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome..." th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''" th:field="*{nome}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}">
+                            <span th:errors="*{nome}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CPF">CPF</label>
+                        <input type="text" class="form-control" id="cpf" placeholder="CPF..." th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid' : ''" th:field="*{cpf}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('cpf')}">
+                            <span th:errors="*{cpf}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" id="email" placeholder="E-mail..." th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" th:field="*{email}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}">
+                            <span th:errors="*{email}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" placeholder="Telefone..." th:classappend="${#fields.hasErrors('telefone')} ? 'is-invalid' : ''" th:field="*{telefone}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}">
+                            <span th:errors="*{telefone}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CEP">Cep</label>
+                        <input type="text" class="form-control" id="cep" placeholder="Cep..." th:classappend="${#fields.hasErrors('cep')} ? 'is-invalid' : ''" th:field="*{cep}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('cep')}">
+                            <span th:errors="*{cep}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Senha..." th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid' : ''" th:field="*{senha}"/>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('senha')}">
+                            <span th:errors="*{senha}"></span>
+                        </div>
+                        <div class="valid-feedback" th:if="${!#fields.hasErrors('nome')}">
+                            Ok!
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cadastrar" />
+                    </div>
+
+                    <input type="button" class="btn btn-danger btn-lg btn-block" value="Voltar" th:onClick="'location.href=\'' + @{/} + '\';'"/>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</body>
+
+</html>

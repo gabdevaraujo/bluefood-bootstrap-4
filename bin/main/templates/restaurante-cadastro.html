@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}" th:with="link=@{/restaurante/home}">
+
+<body id="fundo">
+    <div layout:fragment="content">
+        <div class="container mt-3">
+            <div class="card">
+
+                <div class="card-header">
+                    Cadastro de Cliente
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Insira seus dados</h5>
+                    <form method="POST" th:object="${restaurante}" th:action="@{/public/restaurante/save}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="nome">Nome do Restaurante</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome..." th:field="*{nome}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="CPF">CNPJ</label>
+                            <input type="text" class="form-control" id="cpf" placeholder="CNPJ..." th:field="*{cnpj}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" placeholder="E-mail..." th:field="*{email}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="text" class="form-control" id="telefone" placeholder="Telefone..." th:field="*{telefone}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="CEP">Cep</label>
+                            <input type="text" class="form-control" id="cep" placeholder="Cep..." th:field="*{cep}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="taxaEntrega">Taxa de Entrega</label>
+                            <input type="text" class="form-control" id="taxaEntrega" placeholder="Taxa de Entrega..." th:field="*{taxaEntrega}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempoEntrega">Tempo de Entrega</label>
+                            <input type="text" class="form-control" id="tempoEntrega" placeholder="Tempo de Entrega..." th:field="*{tempoEntrega}"/>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="categoria">Selecione uma ou mais categorias para o seu restaurante</label>
+                            <select class="custom-select custom-select-lg mb-3" multiple size="4" th:field="*{categorias}">
+                                <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"></option>
+                              </select>      
+                        </div>
+    
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile" th:field="*{logotipoFile}">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                              </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" placeholder="Senha..." th:field="*{senha}"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cadastrar" />
+                        </div>
+    
+                        <input type="button" class="btn btn-danger btn-lg btn-block" value="Voltar" th:onClick="'location.href=\'' + @{/} + '\';'"/>
+                </div>
+                </form>
+            </div>
+        </div>
+        
+        <div th:if="${msg != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><span th:text="${msg}"></span></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        
+    </div>
+    
+</body>
+
+</html>

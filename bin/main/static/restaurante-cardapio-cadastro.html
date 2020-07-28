@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!--Container do cadastro e alteração-->
+
+  <div class="container mt-3">
+
+    <div class="card">
+
+      <div class="card-header">Cadastro de Item do Cardápio</div>
+
+      <div class="card-body">
+        <form>
+
+          <input type="hidden" name="id-item">
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="nomeItem">Nome do Item</label>
+              <input type="text" class="form-control" id="nomeItem" placeholder="Feijoada do Rei">
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" class="form-control" name="" rows="3"></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-row">
+            
+            <label for="categoria">Categoria</label>
+            <input type="text" class="form-control" id="categoria">
+          
+          </div>
+
+          <div class="form-row">
+            
+            <div class="form-group col-md-2">
+              <label for="preco">Preço</label>
+              <input type="text" class="form-control" id="preco" placeholder="R$ 20,00">
+            </div>
+
+            <div class="form-group col-md-2">
+              
+            </div>
+
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-col-md-2">
+              <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+            <div class="form-col-md-2">
+              <button type="submit" class="btn btn-danger">Cancelar</button>
+            </div>
+
+          </div>
+          
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--Container do cardápio-->
+  <div class="container mt-3">
+
+    <div class="card">
+
+      <div class="card-header">
+
+        Itens Cadastrados
+
+      </div>
+
+      <div class="card-body">
+        <div class="card-deck">
+          
+          <div class="card w-auto text-center">
+            <div class="card-header">
+              Nome Item
+            </div>       
+
+            <div class="card-body">
+              <img src="images/Logo McDonald_MCDON_DRIV15.png" class="img-comida img-fluid" alt="..." id="imagemPedidos">
+              <h5 class="card-title"></h5>
+              <p class="card-text">Descrição: 2x Big Mac's + Refri 2L</p>
+              <p class="card-text"><small class="text-muted">Valor: R$35,00</small></p>
+              <a href="#" class="btn btn-primary">Editar</a>
+            </div>
+
+          </div>
+
+          <div class="card w-auto text-center">
+            <div class="card-header">
+              25/04/2020
+            </div>
+
+            <div class="card-body">
+              <img src="images/201910292243_94aaf166-84cc-4ebf-a35d-d223be34d01f.jpeg" class="img-comida img-fluid" alt="..."
+                id="imagemPedidos">
+              <h5 class="card-title"></h5>
+              <p class="card-text">Pedido: Peixada p/ 4</p>
+              <p class="card-text"><small class="text-muted">Valor: R$250,00</small></p>
+              <a href="#" class="btn btn-primary">Nota</a>
+            </div>
+
+          </div>
+
+          <div class="card w-auto text-center">
+            <div class="card-header">
+              29/04/2020
+            </div>
+
+            <div class="card-body">
+              <img src="images/202001031317_CXpO_i.png" class="img-comida img-fluid" alt="..." id="imagemPedidos">
+              <h5 class="card-title"></h5>
+              <p class="card-text">Pedido: 4x Box Frango Xadrez</p>
+              <p class="card-text"><small class="text-muted">Valor: R$100,00</small></p>
+              <a href="#" class="btn btn-primary">Nota</a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="text-center">Paginação <<>> </div>
+
+    </div>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

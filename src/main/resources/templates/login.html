@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}">
+
+
+<body>
+    
+    <div layout:fragment="content">
+        
+        <div th:if="${msg != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><span th:text="${msg}"></span></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        
+        
+        <div class="card" id="login">
+            <div class="card-body">
+                <form method="post" th:action="@{/login}">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="username" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Insira seu e-mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" name="password" class="form-control" id="senha" placeholder="Insira sua Senha" />
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Entrar"/>
+                </form>
+                <a th:href="@{/public/restaurante/new}" class="card-link">Cadastro de Restaurante</a>
+                <a th:href="@{/public/cliente/new}" class="card-link">Cadastro de Cliente</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

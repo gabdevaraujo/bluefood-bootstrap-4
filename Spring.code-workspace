@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../bsbluefood"
+		},
+		{
+			"name": "bs_bluefood",
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

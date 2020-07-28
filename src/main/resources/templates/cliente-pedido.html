@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}"
+    th:with="link=@{/cliente/home}">
+
+<body id="fundo">
+<div layout:fragment="content">
+    <div class="container position-relative bg-white p-2 shadow">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                      <div th:if="@{pedido != null}" class="justify-content-between">
+                        <span class="ml-3" th:text="'Número do Pedido: ' + ${pedido.formattedId}"></span>
+                        <button type="button" class="btn btn-outline-primary ml-3" th:onClick="'location.href=\'' + @{/cliente/carrinho/refazerCarrinho} + '?pedidoId='+ ${pedido.id} + '\';'">Pedir novamente</button>
+                      </div>
+        
+                </div>
+        
+                <div class="card-body">
+
+                    <div th:each="item : ${pedido.itens}">
+                        <div class="row justify-content-between border-bottom">
+                            <span th:text="${item.quantidade} + 'x ' + ${item.itemCardapio.nome} + ' ' + ${'| Obs: ' + item.observacoes}"></span>
+                            <span class="text-muted" th:text="${item.preco}"></span>
+                        </div>
+                    </div>
+               
+                        <div class="row justify-content-between">
+                            <span>Taxa de Entrega</span>
+                            <span class="text-muted" th:text="${#numbers.formatCurrency(pedido.taxaEntrega)}"></span>
+                        </div>
+                        <div class="row justify-content-between border-bottom">
+                            <strong><span>Total</span></strong>
+                            <strong><span th:text="${#numbers.formatCurrency(pedido.total)}"></span></strong>
+                        </div>
+
+                        <div class="row">
+                            <p class="text-muted">Entrega em</p><br/>
+                        </div>
+                        <div class="row">
+                            <p>Rua, Num - Bairro - Cidade/UFss</p>
+                        </div>
+                            
+                        <div class="row justify-content-between border-bottom">
+                            <p class="lead">Ponto de referência: Jardim Iguaçu Canetas Compactor</p>
+                        </div>
+
+                        <div class="row justify-content-between border-bottom">
+                                <span class="text-muted">Data do Pedido</span>
+                                <p th:text="${pedido.data}"></p>
+                        </div>
+                    
+                        <div class="row justify-content-between border-bottom">
+                                <span class="text-muted">Pagamento na entrega</span>
+                                <p>DINHEIRO</p>
+                        </div>
+                        
+                        <div class="row justify-content-between border-bottom">
+                                <span class="text-muted">Status do Pedido</span>
+                                <p th:text="${pedido.status.descricao}"></p>
+                        </div>
+                    
+                    <div class="row text-center pt-1">
+                        
+                    </div>
+
+                </div> 
+
+            </div>
+
+            
+            
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

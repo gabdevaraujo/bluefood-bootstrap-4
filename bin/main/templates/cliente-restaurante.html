@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{template-login}"
+    th:with="link=@{/cliente/home}">
+
+<body id="fundo">
+    <div layout:fragment="content">
+        <div class="container">
+            <h2>Resultados</h2>
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <form action="get" th:action="@{/cliente/restaurante}" id="filterForm" class="form-inline">
+                            
+                                <input type="hidden" name="categoria" id="categoria" />
+                                <input type="hidden" name="restauranteId" th:value="${restaurante.id}">
+                                    
+                                    <input
+                                        th:each="categoria : ${categorias}"
+                                        th:id="${categoria == categoriaSelecionada} ? 'inputSelecionado' : ''"
+                                        type="button"
+                                        class="form-inline form-control btn-primary ml-3" 
+                                        th:classappend="${categoria == categoriaSelecionada} ? 'active' : ''"
+                                        th:data-categoria="${categoria}" 
+                                        th:value="${categoria}" 
+                                        onclick="filterCardapio(this.getAttribute('data-categoria'))"/>
+                                
+                            </form> 
+                        </div>
+                    </div>
+                                           
+
+                </div>
+                
+                <div class="card-body"> 
+                    <div class="row row-cols-1 row-cols-md-3">
+                        <div class="col mb-3" th:each="item : ${naoDestaque}">
+                            <div class="card w-auto text-center">
+                                <div class="card-header">
+                                    <p id="restauranteOpcaoTitulo" th:text="${item.nome}"></p>
+                                </div>
+                                <div class="card-body justify-content-center">
+                                    <img th:src="@{/images/comidas/} + ${item.imagem}" id="imgRestauranteOpcao" style="width: 200px; height: 200px;">
+                                    <p id="restauranteOpcaoCategoria" th:text="${item.descricao}"></p>
+                                    <p id="restauranteOpcaoTempo" th:text="${#numbers.formatCurrency(item.preco)}"></p>
+                                    <form method="GET" th:action="@{/cliente/carrinho/adicionar}" class="form-group">
+                                        <input type="hidden" name="itemId" th:value="${item.id}">
+                                        
+                                        <label for="qtd">Quantidade: </label>
+                                        <input type="text"  class="form-control" name="qtd" id="qtd" value="1" placeholder="1..." />
+
+                                        <label for="obs">Observacoes: </label>
+                                        <textarea name="observacoes" class="form-control"></textarea>
+
+                                        <input type="submit" class="form-control mt-2 btn-primary" value="Adicionar ao carrinho">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+</body>
+
+</html>
