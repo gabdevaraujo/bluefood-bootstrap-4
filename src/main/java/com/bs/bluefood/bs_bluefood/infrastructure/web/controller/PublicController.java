@@ -76,7 +76,7 @@ public class PublicController {
 		}
 		HelperController.setEditMode(model, false);
 		HelperController.addCategoriasToRequest(crr, model);
-		return "restaurante-home";
+		return "restaurante-cadastro";
 	}
 	
 }

@@ -3,6 +3,10 @@ package com.bs.bluefood.bs_bluefood.infrastructure.web.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
+import com.bs.bluefood.bs_bluefood.application.services.RestauranteService;
+import com.bs.bluefood.bs_bluefood.application.services.ValidationException;
 import com.bs.bluefood.bs_bluefood.domain.restaurante.CategoriaRestauranteRepository;
 import com.bs.bluefood.bs_bluefood.domain.restaurante.ItemCardapio;
 import com.bs.bluefood.bs_bluefood.domain.restaurante.ItemCardapioRepository;
@@ -13,7 +17,10 @@ import com.bs.bluefood.bs_bluefood.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,6 +36,9 @@ public class RestauranteController {
 
     @Autowired
     private ItemCardapioRepository itemCardapioRepository;
+
+    @Autowired
+    private RestauranteService rs;
 
     @GetMapping("/home")
     public String home(){
@@ -50,6 +60,23 @@ public class RestauranteController {
         return "restaurante-cadastro";
     }
 
+    @PostMapping("/save")
+	public String saveRestaurante(@ModelAttribute("restaurante") @Valid Restaurante restaurante, Errors errors, Model model) {
+		
+		if(!errors.hasErrors()) {
+			try {
+				rs.saveRestaurante(restaurante);
+				model.addAttribute("msg", "Restaurante cadastrado com sucesso");
+			} catch (ValidationException e) {
+				errors.rejectValue("email", null, e.getMessage());
+			}
+			
+		}
+		HelperController.setEditMode(model, true);
+		HelperController.addCategoriasToRequest(crr, model);
+		return "restaurante-cadastro";
+	}
+
     @GetMapping(path = "/cardapio-cadastro")
     public String cadastroCardapio(){
         return "restaurante-cardapio-cadastro";
@@ -63,14 +90,13 @@ public class RestauranteController {
 		
 		List<ItemCardapio> itensCardapio = itemCardapioRepository.findByRestaurante_IdOrderByNome(restauranteId);
 		model.addAttribute("itensCardapio", itensCardapio);
-		
-		model.addAttribute("itemCardapio", new ItemCardapio());
+
 		
 		return "restaurante-cardapio";
 	}
 
     @GetMapping(path = "/cardapio/cadastrar")
-    public String cadastrarItemCardapio(@RequestParam("nomeItem") String nome, @RequestParam("descricao") String descricao, @RequestParam("nomeItem") String nome){
+    public String cadastrarItemCardapio(@RequestParam("nomeItem") String nome, @RequestParam("descricao") String descricao){
         return "restaurante-cardapio-cadastro";
     }
 

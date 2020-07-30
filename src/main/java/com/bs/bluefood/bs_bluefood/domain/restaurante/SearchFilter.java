@@ -56,10 +56,10 @@ public class SearchFilter {
         }
         
 
-        if(searchType == searchType.TEXTO){
+        if(searchType == SearchType.TEXTO) {
             categoriaId = null;
         }
-        else if(searchType == searchType.CATEGORIA){
+        else if(searchType == SearchType.CATEGORIA) {
             texto = null;
         }
     }

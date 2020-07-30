@@ -14,8 +14,6 @@ import javax.validation.constraints.Size;
 
 import com.bs.bluefood.bs_bluefood.utils.StringUtils;
 
-import org.springframework.context.annotation.Condition;
-import org.springframework.context.annotation.Conditional;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,6 +1,5 @@
 package com.bs.bluefood.bs_bluefood.infrastructure.web.controller;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

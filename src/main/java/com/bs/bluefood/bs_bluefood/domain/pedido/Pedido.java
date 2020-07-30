@@ -3,7 +3,6 @@ package com.bs.bluefood.bs_bluefood.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.Column;
